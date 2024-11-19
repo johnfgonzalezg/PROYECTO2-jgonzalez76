@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Actualizar Ingrediente</h1>
+<form method="POST" action="{{ url_for('ingredient.edit', id=ingredient.id) }}" class="form">
+    <label for="name">Nombre</label>
+    <input type="text" id="name" name="name" value="{{ ingredient.name }}" required>
+    
+    <label for="ingredient_type">Tipo de Ingrediente</label>
+    <select name="ingredient_type" id="ingredient_type">
+        <option value="" selected=true></option>
+        {% for ingredient_type in ingredient_types %}
+            <option value="{{ ingredient_type.id }}" {% if ingredient_type.id == ingredient.id_ingredient_type %}selected{% endif %}>{{ ingredient_type.type }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="calories">Calorías</label>
+    <input type="number" id="calories" name="calories" value="{{ ingredient.calories }}" required>
+    
+    <label for="price">Precio</label>
+    <input type="number" id="price" name="price" value="{{ ingredient.price }}" required>
+    
+    <label for="is_vegetarian">Es Vegetariano</label>
+    <div class="checkbox-group">
+        <input type="checkbox" id="yes" name="is_vegetarian" value="True" {% if ingredient.is_vegetarian %}checked{% endif %} onclick="toggleCheckbox(this)">
+        <label for="yes">Sí</label>
+        <input type="checkbox" id="no" name="is_vegetarian" value="False" {% if not ingredient.is_vegetarian %}checked{% endif %} onclick="toggleCheckbox(this)">
+        <label for="no">No</label>
+    </div>
+    
+    <label for="quantity">Cantidad</label>
+    <input type="number" id="quantity" name="quantity" value="{{ ingredient.quantity }}" required>
+    
+    <button type="submit" class="button update-button">Actualizar</button>
+</form>
+<a href="{{ url_for('ingredient.index') }}" class="button back-button">Volver</a>
+
+<script>
+    function toggleCheckbox(element) {
+        var checkboxes = document.getElementsByName('is_vegetarian');
+        checkboxes.forEach((checkbox) => {
+            if (checkbox !== element) {
+                checkbox.checked = false;
+            }
+        });
+    }
+</script>
+{% endblock %}

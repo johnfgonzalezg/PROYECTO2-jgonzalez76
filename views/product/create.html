@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Crear Nuevo Producto</h1>
+<form method="POST" action="{{ url_for('product.create') }}" class="form">
+    <label for="name">Nombre</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="product_type">Tipo de Producto</label>
+    <select name="product_type" id="product_type">
+        <option value=""></option>
+        {% for product_type in product_types %}
+            <option value="{{product_type.id}}">{{product_type.type}}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="calories">Calorías</label>
+    <input type="number" id="calories" name="calories" required>
+    
+    <label for="cost">Costo</label>
+    <input type="number" id="cost" name="cost" required>
+    
+    <label for="public_price">Precio al Público</label>
+    <input type="number" id="public_price" name="public_price" required>
+    
+    <label for="profitability">Rentabilidad</label>
+    <input type="number" id="profitability" name="profitability" required>
+    
+    <label for="ingredient_1">Ingrediente Uno</label>
+    <select name="ingredient_1" id="ingredient_1">
+        <option value=""></option>
+        {% for ingredient in ingredients %}
+            <option value="{{ingredient.id}}">{{ingredient.name}}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="ingredient_2">Ingrediente Dos</label>
+    <select name="ingredient_2" id="ingredient_2">
+        <option value=""></option>
+        {% for ingredient in ingredients %}
+            <option value="{{ingredient.id}}">{{ingredient.name}}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="ingredient_3">Ingrediente Tres</label>
+    <select name="ingredient_3" id="ingredient_3">
+        <option value=""></option>
+        {% for ingredient in ingredients %}
+            <option value="{{ingredient.id}}">{{ingredient.name}}</option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit" class="button create-button">Crear</button>
+</form>
+<a href="{{ url_for('product.index') }}" class="button back-button">Volver</a>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Actualizar Producto</h1>
+<form method="POST" action="{{ url_for('product.edit', id=product.id) }}"  class="form">
+    <label for="name">Nombre</label>
+    <input type="text" id="name" name="name" value="{{ product.name }}" required>
+
+    <label for="product_type">Tipo de Producto</label>
+    <select name="product_type" id="product_type">
+        <option value=""></option>
+        {% for product_type in product_types %}
+            <option value="{{product_type.id}}" {% if product_type.id == product.id_product_type %} selected {% endif %}>{{product_type.type}}</option>
+        {% endfor %}
+    </select>
+
+    <label for="calories">Calorías</label>
+    <input type="number" id="calories" name="calories" value="{{ product.calories }}" required>
+
+    <label for="cost">Costo</label>
+    <input type="number" id="cost" name="cost" value="{{ product.cost }}" required>
+
+    <label for="public_price">Precio al Público</label>
+    <input type="number" id="public_price" name="public_price" value="{{ product.public_price }}" required>
+
+    <label for="profitability">Rentabilidad</label>
+    <input type="number" id="profitability" name="profitability" value="{{ product.profitability }}" required>
+
+    <label for="ingredient_1">Ingrediente Uno</label>
+    <select name="ingredient_1" id="ingredient_1">
+        <option value=""></option>
+        {% for ingredient in ingredients %}
+            <option value="{{ingredient.id}}" {% if ingredient.id == product_ingredients[0].id_ingredient %} selected {% endif %}>{{ingredient.name}}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="ingredient_2">Ingrediente Dos</label>
+    <select name="ingredient_2" id="ingredient_2">
+        <option value=""></option>
+        {% for ingredient in ingredients %}
+            <option value="{{ingredient.id}}" {% if ingredient.id == product_ingredients[1].id_ingredient %} selected {% endif %}>{{ingredient.name}}</option>
+        {% endfor %}    
+    </select>
+    
+    <label for="ingredient_3">Ingrediente Tres</label>
+    <select name="ingredient_3" id="ingredient_3">
+        <option value=""></option>
+        {% for ingredient in ingredients %}
+            <option value="{{ingredient.id}}" {% if ingredient.id == product_ingredients[2].id_ingredient %} selected {% endif %}>{{ingredient.name}}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="button update-button">Actualizar</button>
+</form>
+<a href="{{ url_for('product.index') }}" class="button back-button">Volver</a>
+
+{% endblock %}

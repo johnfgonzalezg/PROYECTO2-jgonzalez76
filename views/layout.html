@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heladería de John F</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            padding: 20px;
+        }
+    
+        h1 {
+            color: #1e3a5f;
+            margin-bottom: 20px;
+        }
+    
+        .button {
+            background-color: #1e3a5f;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    
+        .button:hover {
+            background-color: #162d45;
+        }
+    
+        .create-button {
+            background-color: #28a745;
+        }
+    
+        .create-button:hover {
+            background-color: #218838;
+        }
+    
+        .back-button {
+            background-color: #007bff;
+        }
+    
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+    
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #1e3a5f;
+            color: #fff;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    
+        .button-edit, .button-delete {
+            background-color: #ff6b6b;
+            color: #fff;
+            padding: 5px 10px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .button-edit:hover, .button-delete:hover {
+            background-color: #ff4c4c;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #1e3a5f;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .form input[type="text"],
+        .form input[type="number"],
+        .form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            margin-left: 5px;
+            margin-right: 20px;
+        }
+
+        .button {
+            background-color: #1e3a5f;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #162d45;
+        }
+
+        .create-button {
+            background-color: #28a745;
+        }
+
+        .create-button:hover {
+            background-color: #218838;
+        }
+
+        .back-button {
+            background-color: #007bff;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>        
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Heladería de John F</h1>
+        </header>
+        <main>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

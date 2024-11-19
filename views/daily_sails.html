@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Ventas del día</h1>
+{% if daily_sail %}
+<table border="1">
+    <thead>
+        <th style="width: 30%;">Fecha</th>
+        <th style="width: 20%;">Valor ventas($)</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ daily_sail.sell_date }}</td>
+            <td>{{ daily_sail.total_sell_value }}</td>
+        </tr>
+    </tbody>
+</table>
+{% else %}
+<p>No hay ventas registradas para el día de hoy.</p>
+{% endif %}
+<a href="{{ url_for('index') }}" class="button back-button">Volver</a>
+{% endblock %}

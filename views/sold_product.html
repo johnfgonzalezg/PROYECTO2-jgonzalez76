@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Vender Producto</h1>
+<form method="POST" action="{{ url_for('ice_cream_shop.sold_product', products=products) }}" class="form">
+    
+    <label for="sell_product">Seleccione el producto que desea vender</label>
+    <select name="sell_product" id="sell_product">
+        <option value="" selected=true></option>
+        {% for product in products %}
+            <option value="{{ product.id }}" >{{ product.name }}</option>
+        {% endfor %}
+    </select>    
+    <button type="submit" class="button update-button">Vender</button>
+</form>
+<a href="{{ url_for('index') }}" class="button back-button">Volver</a>
+{% endblock %}

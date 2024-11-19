@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Inventario de Ingredientes</h1>
+<a href="{{ url_for('ingredient.create') }}" class="button create-button">Crear Nuevo Ingrediente</a>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Tipo Ingrediente</th>
+            <th>Calorías</th>
+            <th>Precio</th>
+            <th>Es Vegetariano</th>
+            <th>Cantidad en Inventario</th>
+            <th>Editar</th>
+            <th>Borrar</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for ingredient, ingredient_type in ingredients %}
+    <tr>
+        <td>{{ ingredient.name }}</td>
+        <td>{{ ingredient_type.type }}</td>
+        <td>{{ ingredient.calories }}</td>
+        <td>{{ ingredient.price }}</td>
+        <td>{{ 'Si ' if ingredient.is_vegetarian else 'No' }}</td>
+        <td>{{ ingredient.quantity }}</td>
+        <td>
+            <form action="{{ url_for('ingredient.edit', id=ingredient.id) }}" method="GET" style="display:inline;">
+                <button type="submit" class="button-edit">Editar</button>
+            </form>
+        </td>
+        <td>
+            <form action="{{ url_for('ingredient.delete', id=ingredient.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="button-delete">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('index') }}" class="button back-button">Volver</a>
+{% endblock %}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heladería de John F</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #1e3a5f;
+            margin-bottom: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .grid-item {
+            background-color: #1e3a5f;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            width: 150px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .grid-item:hover {
+            background-color: #162d45;
+        }
+
+        .grid-item i {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .grid-item span {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .row-2 {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Bienvenido a la Heladería de John F</h1>
+        <div class="grid-container">
+            <a href="{{ url_for('ingredient.index') }}" class="grid-item">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario de Ingredientes</span>
+            </a>
+            <a href="{{ url_for('product.index') }}" class="grid-item">
+                <i class="fas fa-utensils"></i>
+                <span>Menú de Productos</span>
+            </a>
+            <a href="{{ url_for('ice_cream_shop.sold_product', products=products) }}" class="grid-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Vender Producto</span>
+            </a>
+            <div class="row-2">
+                <a href="{{ url_for('ice_cream_shop.most_profitable_product') }}" class="grid-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Validar Producto Más Rentable</span>
+                </a>
+                <a href="{{ url_for('ice_cream_shop.daily_sails') }}" class="grid-item">
+                    <i class="fas fa-cash-register"></i>
+                    <span>Ver las Ventas del Día</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
