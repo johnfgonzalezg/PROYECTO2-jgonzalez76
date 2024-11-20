@@ -12,13 +12,13 @@ class Product(db.Model):
     profitability = db.Column(db.Numeric(10, 2), nullable = False)
     cup_type = db.Column(db.String(100))
 
-    def __init__(self, id_product_type: int, name: str, calories: int, cost: float, public_price: float, profitability: float, cup_type: str = None) -> None:
+    def __init__(self, id_product_type: int, name: str, public_price: float, cup_type: str = None) -> None:
         self.id_product_type = id_product_type
         self.name = name
-        self.calories = calories
-        self.cost = cost
         self.public_price = public_price
-        self.profitability = profitability
+        self.calories = 0
+        self.cost = 0
+        self.profitability = 0
         self.cup_type = cup_type if cup_type != None else ''
 
     #Getters y Setters

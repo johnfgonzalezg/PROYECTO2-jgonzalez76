@@ -13,6 +13,8 @@ load_dotenv()
 
 app = Flask(__name__, template_folder = 'views')
 
+app.secret_key = os.getenv('SECRET_KEY', 'supersecretkey')
+
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

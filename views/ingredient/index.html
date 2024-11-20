@@ -12,6 +12,7 @@
             <th>Precio</th>
             <th>Es Vegetariano</th>
             <th>Cantidad en Inventario</th>
+            <th>Es sano?</th>
             <th>Editar</th>
             <th>Borrar</th>
         </tr>
@@ -26,6 +27,11 @@
         <td>{{ 'Si ' if ingredient.is_vegetarian else 'No' }}</td>
         <td>{{ ingredient.quantity }}</td>
         <td>
+            <form action="{{ url_for('ingredient.its_healthy', id=ingredient.id) }}" method="GET" style="display:inline;">
+                <button type="submit" class="button-edit">Es sano?</button>
+            </form>
+        </td>
+        <td>
             <form action="{{ url_for('ingredient.edit', id=ingredient.id) }}" method="GET" style="display:inline;">
                 <button type="submit" class="button-edit">Editar</button>
             </form>
@@ -39,5 +45,11 @@
     {% endfor %}
     </tbody>
 </table>
+{% if its_healthy %} 
+    <script type="text/javascript"> 
+        window.onload = function(){ 
+            alert("{{ its_healthy|escapejs }}"); 
+        } 
+    </script> {% endif %}
 <a href="{{ url_for('index') }}" class="button back-button">Volver</a>
 {% endblock %}
