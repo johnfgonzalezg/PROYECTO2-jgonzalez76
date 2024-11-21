@@ -26,6 +26,7 @@ def create():
             db.session.commit()
             return redirect(url_for('ingredient.index'))
         except Exception as e:
+            print('Error crear ingrediente: ' + str(e))
             flash(str(e))
             return redirect(url_for('ingredient.create'))
     ingredient_types = IngredientType.query.all()
