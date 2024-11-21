@@ -13,10 +13,10 @@
     <button type="submit" class="button update-button">Vender</button>
 </form>
 
-{% if message %}
+{% if sold_message %}
     <script type="text/javascript">
         window.onload = function() {
-            alert("{{ message|e }}");
+            alert("{{ sold_message|e }}");
         }
     </script>
 {% endif %}

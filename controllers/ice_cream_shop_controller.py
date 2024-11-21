@@ -4,9 +4,10 @@ from models.ingredient import Ingredient
 from models.product import Product
 from models.product_ingredient import ProductIngredient
 from models.ingredient_type import IngredientType
-from models.daily_sell import DailySells
+from models.daily_sells import DailySells
 from datetime import datetime
 from decimal import Decimal
+from controllers.product_controller import calculate_profitability, calculate_cost
 
 
 ice_cream_shop_bp = Blueprint('ice_cream_shop', __name__)
@@ -17,6 +18,11 @@ def index():
 
 @ice_cream_shop_bp.route('/most_profitable_product', methods=['GET'], endpoint='most_profitable_product')
 def most_profitable_product():
+    products = Product.query.all()
+    for product in products:
+        calculate_cost(product.id)
+        calculate_profitability(product.id)
+    
     most_profitable_product = Product.query.order_by(Product.profitability.desc()).first()
     return render_template('most_profitable_product.html', product = most_profitable_product)
 
@@ -30,6 +36,7 @@ def daily_sails():
 def sold_product():
     ingredients = Ingredient.query.all()
     products = Product.query.all()
+    sold_message = request.args.get('sold_message')
     if request.method == 'POST':
         try:
             id_product = request.form['sell_product']
@@ -61,12 +68,13 @@ def sold_product():
                 else:
                     daily_sell.total_sell_value += sold_product.public_price
                     db.session.commit()
-            flash('¡Vendido!', 'success')
-            return redirect(url_for('index'))
+            sold_message = '¡Vendido!'
+            return redirect(url_for('ice_cream_shop.sold_product', sold_message = sold_message))
         except ValueError as e:
-            flash(str(e), 'error')
+            sold_message = str(e)
+            return redirect(url_for('ice_cream_shop.sold_product', sold_message = sold_message))
             print('Error: '+ str(e))
-    return render_template('sold_product.html', products=products)
+    return render_template('sold_product.html', products=products, sold_message = sold_message)
 
 
 def check_stock(product_ingredient: Ingredient) -> bool:

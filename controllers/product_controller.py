@@ -10,36 +10,44 @@ product_bp = Blueprint('product', __name__)
 @product_bp.route('/', methods=['GET'], endpoint='index')
 def index():
     products = db.session.query(Product, ProductType).join(ProductType, Product.id_product_type == ProductType.id).all()
-    return render_template('product/index.html', products=products)
+    error_message = request.args.get('error_message')
+    if error_message:
+        print('error_message: ' + error_message)
+    return render_template('product/index.html', products = products, error_message = error_message)
 
 @product_bp.route('/create', methods=['GET', 'POST'], endpoint='create')
 def create():
     products = Product.query.count()
-    if products >= 4:
-        raise ValueError('Ya existen cuatro productos en el menú')
-    elif request.method == 'POST':
-        id_product_type = request.form['product_type']
-        name = request.form['name']
-        public_price = request.form['public_price']
-        cup_type = request.form['cup_type']
-        ingredient_1 = request.form['ingredient_1']
-        ingredient_2 = request.form['ingredient_2']
-        ingredient_3 = request.form['ingredient_3']
-        product = Product(id_product_type=id_product_type, name=name, public_price=public_price, cup_type=cup_type)
-        db.session.add(product)
-        db.session.flush()
-        product_ingredient_1 = ProductIngredient(id_product=product.id, id_ingredient=ingredient_1)
-        product_ingredient_2 = ProductIngredient(id_product=product.id, id_ingredient=ingredient_2)
-        product_ingredient_3 = ProductIngredient(id_product=product.id, id_ingredient=ingredient_3)
-        db.session.add(product_ingredient_1)
-        db.session.add(product_ingredient_2)
-        db.session.add(product_ingredient_3)
-        db.session.commit()
-        calculate_calories(product.id)
-        calculate_cost(product.id)
-        calculate_profitability(product.id)
-        db.session.commit()
-        return redirect(url_for('product.index'))
+    try:
+        if products >= 4:
+            raise ValueError('Ya existen cuatro productos en el menú')
+        elif request.method == 'POST':
+            id_product_type = request.form['product_type']
+            name = request.form['name']
+            public_price = request.form['public_price']
+            cup_type = request.form['cup_type']
+            ingredient_1 = request.form['ingredient_1']
+            ingredient_2 = request.form['ingredient_2']
+            ingredient_3 = request.form['ingredient_3']
+            product = Product(id_product_type=id_product_type, name=name, public_price=public_price, cup_type=cup_type)
+            db.session.add(product)
+            db.session.flush()
+            product_ingredient_1 = ProductIngredient(id_product=product.id, id_ingredient=ingredient_1)
+            product_ingredient_2 = ProductIngredient(id_product=product.id, id_ingredient=ingredient_2)
+            product_ingredient_3 = ProductIngredient(id_product=product.id, id_ingredient=ingredient_3)
+            db.session.add(product_ingredient_1)
+            db.session.add(product_ingredient_2)
+            db.session.add(product_ingredient_3)
+            db.session.commit()
+            calculate_calories(product.id)
+            calculate_cost(product.id)
+            calculate_profitability(product.id)
+            db.session.commit()
+            return redirect(url_for('product.index'))
+    except ValueError as e:
+        print('Error: ' + str(e))
+        error_message = str(e)
+        return redirect(url_for('product.index', error_message = error_message))
     product_types = ProductType.query.all()
     ingredients = Ingredient.query.all()
     return render_template('product/create.html', product_types=product_types, ingredients=ingredients)

@@ -8,7 +8,8 @@ ingredient_bp = Blueprint('ingredient', __name__)
 @ingredient_bp.route('/', methods=['GET'], endpoint='index')
 def index():
     ingredients = db.session.query(Ingredient, IngredientType).join(IngredientType, Ingredient.id_ingredient_type == IngredientType.id).all()
-    return render_template('ingredient/index.html', ingredients=ingredients)
+    its_healthy = request.args.get('its_healthy')
+    return render_template('ingredient/index.html', ingredients=ingredients, its_healthy = its_healthy)
 
 @ingredient_bp.route('/create', methods=['GET', 'POST'], endpoint='create')
 def create():
